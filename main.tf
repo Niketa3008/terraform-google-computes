@@ -23,19 +23,9 @@ resource "google_compute_instance" "default" {
     }
   }
 
-  dynamic "network_interface" {
-    for_each                        = var.network_interfaces
-    content {
-      subnetwork                    = network_interface.value.subnetwork
-      network_ip                    = network_interface.value.network_ip
-      dynamic "access_config" {
-        for_each                    = lookup(network_interface.value, "access_config", [])
-        content {
-          nat_ip                    = access_config.value.nat_ip
-        }
-      }
+ network_interface {
+      subnetwork                    = var.network_interface.subnetwork
     }
-  }
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.

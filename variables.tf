@@ -54,15 +54,8 @@ variable "attached_disk" {
   }))
 }
 
-variable "network_interfaces" {
+variable "network_interface" {
   description     = "List of network interfaces"
-  type            = list(object({
-    subnetwork    = string
-    network_ip    = string
-    access_config = list(object({
-      nat_ip      = string
-    }))
-  }))
 }
 
 variable "service_account_email" {
